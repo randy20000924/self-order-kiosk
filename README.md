@@ -130,4 +130,4 @@ $ npm start
     3.  create ready, cancel and deliver button
 14. Create Queue Screen
     1.  build list queue order api
-    2.  show queue in the screen in 2 columns
+    2.  show queue in the screen in 2 columns# self_order_system
