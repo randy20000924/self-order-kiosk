@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Typography } from '@material-ui/core';
+import { Box, Button,  Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React, { useContext, useEffect } from 'react';
 import { createOrder } from '../actions';
@@ -16,15 +16,15 @@ export default function CompleteOrderScreen(props) {
     if (order.orderItems.length > 0) {
       createOrder(dispatch, order);
     }
-  }, [order]);
+  }, [order,dispatch]);
 
   return (
-    <Box className={[styles.root, styles.navy]}>
+    <Box className={[styles.root, styles.green]}>
       <Box className={[styles.main, styles.center]}>
         <Box>
           <Logo large></Logo>
           {loading ? (
-            <CircularProgress></CircularProgress>
+            <h1>感謝購買!</h1>
           ) : error ? (
             <Alert severity="error">{error}</Alert>
           ) : (
@@ -35,7 +35,7 @@ export default function CompleteOrderScreen(props) {
                 variant="h3"
                 component="h3"
               >
-                Your order has been placed
+                你的訂單已開始準備
               </Typography>
               <Typography
                 gutterBottom
@@ -43,7 +43,7 @@ export default function CompleteOrderScreen(props) {
                 variant="h1"
                 component="h1"
               >
-                Thank you!
+                感謝購買!
               </Typography>
               <Typography
                 gutterBottom
@@ -51,7 +51,7 @@ export default function CompleteOrderScreen(props) {
                 variant="h3"
                 component="h3"
               >
-                Your order number is {newOrder.number}
+                你的取餐號碼 {newOrder.number} 號
               </Typography>
             </>
           )}
@@ -64,7 +64,7 @@ export default function CompleteOrderScreen(props) {
           color="primary"
           className={styles.largeButton}
         >
-          Order Again
+          再訂一次
         </Button>
       </Box>
     </Box>

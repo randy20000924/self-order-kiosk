@@ -3,6 +3,9 @@ import {
   CATEGORY_LIST_FAIL,
   CATEGORY_LIST_REQUEST,
   CATEGORY_LIST_SUCCESS,
+  CATEGORY_LIST_FAIL1,
+  CATEGORY_LIST_REQUEST1,
+  CATEGORY_LIST_SUCCESS1,
   ORDER_ADD_ITEM,
   ORDER_CLEAR,
   ORDER_CREATE_FAIL,
@@ -28,10 +31,11 @@ export const Store = createContext();
 const initialState = {
   widthScreen: false,
   categoryList: { loading: true },
+  categoryList1: { loading: true },
   productList: { loading: true },
   queueList: { loading: true },
   order: {
-    orderType: 'Eat in',
+    orderType: '內用',
     orderItems: [],
     paymentType: 'Pay here',
   },
@@ -58,6 +62,18 @@ function reducer(state, action) {
       return {
         ...state,
         categoryList: { loading: false, error: action.payload },
+      };
+    case CATEGORY_LIST_REQUEST1:
+        return { ...state, categoryList1: { loading: true } };
+    case CATEGORY_LIST_SUCCESS1:
+      return {
+        ...state,
+        categoryList1: { loading: false, categories: action.payload },
+      };
+    case CATEGORY_LIST_FAIL1:
+      return {
+        ...state,
+        categoryList1: { loading: false, error: action.payload },
       };
     case PRODUCT_LIST_REQUEST:
       return { ...state, productList: { loading: true } };
@@ -97,8 +113,8 @@ function reducer(state, action) {
         (a, c) => a + c.quantity * c.price,
         0
       );
-      const taxPrice = Math.round(0.15 * itemsPrice * 100) / 100;
-      const totalPrice = Math.round((itemsPrice + taxPrice) * 100) / 100;
+      const taxPrice = 0;
+      const totalPrice = Math.round((itemsPrice + taxPrice));
 
       return {
         ...state,
@@ -121,7 +137,7 @@ function reducer(state, action) {
         0
       );
       const taxPrice = Math.round(0.15 * itemsPrice * 100) / 100;
-      const totalPrice = Math.round((itemsPrice + taxPrice) * 100) / 100;
+      const totalPrice = Math.round((itemsPrice) * 100) / 100;
 
       return {
         ...state,

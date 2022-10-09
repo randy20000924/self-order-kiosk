@@ -24,7 +24,6 @@ export default function ReviewScreen(props) {
     orderItems,
     itemsCount,
     totalPrice,
-    taxPrice,
     orderType,
   } = state.order;
 
@@ -46,14 +45,19 @@ export default function ReviewScreen(props) {
     removeFromOrder(dispatch, product);
     setIsOpen(false);
   };
+  const editFromOrder = (foodtype) => {
+      removeFromOrder(dispatch, product);
+      setIsOpen(false);
+      props.history.push('sideorder')
+  };
   const procedToCheckoutHandler = () => {
-    props.history.push('/select-payment');
+    props.history.push('/custom');
   };
 
   const styles = useStyles();
   return (
     <Box className={[styles.root]}>
-      <Box className={[styles.main, styles.navy, styles.center]}>
+      <Box className={[styles.main, styles.green, styles.center]}>
         <Dialog
           maxWidth="sm"
           fullWidth={true}
@@ -103,10 +107,33 @@ export default function ReviewScreen(props) {
               className={styles.largeButton}
             >
               {orderItems.find((x) => x.name === product.name)
-                ? 'Remove From Order'
+                ? '從點單移除'
                 : 'Cancel'}
             </Button>
-
+            {
+              product.category==="配餐"&&(
+            <Button
+              onClick={editFromOrder}
+              variant="contained"
+              color="primary"
+              size="large"
+              className={styles.largeButton}
+            >
+              修改
+            </Button>
+            )}
+            {
+              product.category==="配餐飲料"&&(
+            <Button
+              onClick={editFromOrder}
+              variant="contained"
+              color="primary"
+              size="large"
+              className={styles.largeButton}
+            >
+              修改
+            </Button>
+            )}
             <Button
               onClick={addToOrderHandler}
               variant="contained"
@@ -114,7 +141,7 @@ export default function ReviewScreen(props) {
               size="large"
               className={styles.largeButton}
             >
-              ADD To Order
+              加到點單
             </Button>
           </Box>
         </Dialog>
@@ -126,10 +153,10 @@ export default function ReviewScreen(props) {
             variant="h3"
             component="h3"
           >
-            Review my {orderType} order
+            查看我的點單
           </Typography>
         </Box>
-        <Grid container>
+        <Grid container> 
           {orderItems.map((orderItem) => (
             <Grid item md={12} key={orderItem.name}>
               <Card
@@ -147,7 +174,7 @@ export default function ReviewScreen(props) {
                       >
                         {orderItem.name}
                       </Typography>
-                      <Button variant="contained">Edit</Button>
+                      <Button variant="contained">修改</Button>
                     </Box>
                     <Box className={[styles.row, styles.between]}>
                       <Typography
@@ -162,7 +189,7 @@ export default function ReviewScreen(props) {
                         color="textPrimary"
                         component="p"
                       >
-                        {orderItem.quantity} x ${orderItem.price}
+                        {orderItem.quantity} x NT${orderItem.price}
                       </Typography>
                     </Box>
                   </CardContent>
@@ -175,8 +202,8 @@ export default function ReviewScreen(props) {
       <Box>
         <Box>
           <Box className={[styles.bordered, styles.space]}>
-            My Order - {orderType === 'takeout' ? 'Take out' : 'Eat in'} | Tax:
-            ${taxPrice} | Total: ${totalPrice} | Items: {itemsCount}
+            我的點單 - {orderType === 'takeout' ? '外帶' : '內用'} | 
+              總價: NT${totalPrice} | 購物車商品: {itemsCount} 件
           </Box>
           <Box className={[styles.row, styles.around]}>
             <Button
@@ -187,7 +214,7 @@ export default function ReviewScreen(props) {
               color="primary"
               className={styles.largeButton}
             >
-              Back
+              返回
             </Button>
             <Button
               onClick={procedToCheckoutHandler}
@@ -196,7 +223,7 @@ export default function ReviewScreen(props) {
               disabled={orderItems.length === 0}
               className={styles.largeButton}
             >
-              Proceed To Checkout
+              結帳
             </Button>
           </Box>
         </Box>

@@ -24,7 +24,7 @@ export default function SelectPaymentScreen(props) {
     }
   };
   return (
-    <Box className={[styles.root, styles.navy]}>
+    <Box className={[styles.root, styles.green]}>
       <Box className={[styles.main, styles.center]}>
         <Logo large></Logo>
         <Typography
@@ -33,10 +33,9 @@ export default function SelectPaymentScreen(props) {
           variant="h3"
           component="h3"
         >
-          Select payment type
+          選擇付款方式
         </Typography>
-      </Box>
-      <Box className={styles.cards}>
+        <Box className={styles.cards}>
         <Card className={[styles.card, styles.space]}>
           <CardActionArea onClick={() => selectHandler('Pay here')}>
             <CardMedia
@@ -52,7 +51,7 @@ export default function SelectPaymentScreen(props) {
                 color="textPrimary"
                 component="p"
               >
-                PAY HERE
+                快速結帳
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -72,11 +71,12 @@ export default function SelectPaymentScreen(props) {
                 color="textPrimary"
                 component="p"
               >
-                AT COUNTER
+                櫃台結帳
               </Typography>
             </CardContent>
           </CardActionArea>
         </Card>
+      </Box>
       </Box>
     </Box>
   );

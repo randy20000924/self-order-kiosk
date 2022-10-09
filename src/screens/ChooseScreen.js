@@ -24,7 +24,7 @@ export default function ChooseScreen(props) {
 
   return (
     <Fade in={true}>
-      <Box className={[styles.root, styles.navy]}>
+      <Box className={[styles.root, styles.green]}>
         <Box className={[styles.main, styles.center]}>
           <Logo large></Logo>
           <Typography
@@ -33,14 +33,14 @@ export default function ChooseScreen(props) {
             className={styles.center}
             gutterBottom
           >
-            Where will you be eating today?
+            今天想如何用餐?
           </Typography>
           <Box className={styles.cards}>
             <Card className={[styles.card, styles.space]}>
-              <CardActionArea onClick={() => chooseHandler('Eat in')}>
+              <CardActionArea onClick={() => chooseHandler('內用')}>
                 <CardMedia
                   component="img"
-                  alt="Eat in"
+                  alt="內用"
                   image="/images/eatin.png"
                   className={styles.media}
                 />
@@ -51,16 +51,16 @@ export default function ChooseScreen(props) {
                     color="textPrimary"
                     component="p"
                   >
-                    Eat In
+                    內用
                   </Typography>
                 </CardContent>
               </CardActionArea>
             </Card>
             <Card className={[styles.card, styles.space]}>
-              <CardActionArea onClick={() => chooseHandler('Take out')}>
+              <CardActionArea onClick={() => chooseHandler('外帶')}>
                 <CardMedia
                   component="img"
-                  alt="Eat in"
+                  alt="外帶"
                   image="/images/takeout.png"
                   className={styles.media}
                 />
@@ -71,7 +71,7 @@ export default function ChooseScreen(props) {
                     color="textPrimary"
                     component="p"
                   >
-                    Take out
+                    外帶
                   </Typography>
                 </CardContent>
               </CardActionArea>

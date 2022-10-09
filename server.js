@@ -3,7 +3,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const data = require('./data');
-
 const app = express();
 
 app.use(express.json());
@@ -21,11 +20,13 @@ const Product = mongoose.model(
   'products',
   new mongoose.Schema({
     name: String,
+    enname: String,
     description: String,
     image: String,
     price: Number,
     calorie: Number,
     category: String,
+    encategory: String,
   })
 );
 
@@ -51,6 +52,10 @@ app.get('/api/categories', (req, res) => {
   res.send(data.categories);
 });
 
+app.get('/api/categories1', (req, res) => {
+  res.send(data.categories1);
+});
+
 const Order = mongoose.model(
   'Order',
   new mongoose.Schema(
@@ -69,6 +74,14 @@ const Order = mongoose.model(
       orderItems: [
         {
           name: String,
+          enname: String,
+          price: Number,
+          quantity: Number,
+        },
+      ],
+      orderItems1: [
+        {
+          enname: String,
           price: Number,
           quantity: Number,
         },

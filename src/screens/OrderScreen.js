@@ -68,7 +68,6 @@ export default function OrderScreen(props) {
     orderItems,
     itemsCount,
     totalPrice,
-    taxPrice,
     orderType,
   } = state.order;
 
@@ -88,16 +87,22 @@ export default function OrderScreen(props) {
   const previewOrderHandler = () => {
     props.history.push(`/review`);
   };
+  const sideOrderHandler = () => {
+    addToOrder(dispatch, { ...product, quantity });
+    setIsOpen(false);
+    props.history.push(`/sideorder`);
+  };
 
   return (
-    <Box className={styles.root}>
+    
+    <Box className={styles.root}> 
       <Dialog
-        maxWidth="sm"
+        maxWidth="md"
         fullWidth={true}
         open={isOpen}
         onClose={closeHandler}
       >
-        <DialogTitle className={styles.center}>Add {product.name}</DialogTitle>
+        <DialogTitle className={styles.center}>加入 {product.name} 到購物車</DialogTitle>
         <Box className={[styles.row, styles.center]}>
           <Button
             variant="contained"
@@ -135,21 +140,44 @@ export default function OrderScreen(props) {
             variant="contained"
             color="primary"
             size="large"
-            className={styles.largeButton}
+            className={styles.mediumButton}
           >
             {orderItems.find((x) => x.name === product.name)
-              ? 'Remove From Order'
-              : 'Cancel'}
+              ? '移除'
+              : '取消'}
           </Button>
-
+          {
+            product.category === "極選系列"&&(
+          <Button
+            onClick={sideOrderHandler}
+            variant="contained"
+            color="primary"
+            size="large"
+            className={[styles.mediumButton]}
+          >
+            增加配餐
+          </Button>
+          )}
+          {
+            product.category === "超值全餐"&&(
+          <Button
+            onClick={sideOrderHandler}
+            variant="contained"
+            color="primary"
+            size="large"
+            className={[styles.mediumButton]}
+          >
+            增加配餐
+          </Button>
+          )}
           <Button
             onClick={addToOrderHandler}
             variant="contained"
             color="primary"
             size="large"
-            className={styles.largeButton}
+            className={styles.mediumButton}
           >
-            ADD To Order
+            加入
           </Button>
         </Box>
       </Dialog>
@@ -186,7 +214,7 @@ export default function OrderScreen(props) {
               variant="h2"
               component="h2"
             >
-              {categoryName || 'Main Menu'}
+              {categoryName || '主菜單'}
             </Typography>
             <Grid container spacing={1}>
               {loadingProducts ? (
@@ -230,7 +258,7 @@ export default function OrderScreen(props) {
                             color="textPrimary"
                             component="p"
                           >
-                            ${product.price}
+                            NT${product.price}
                           </Typography>
                         </Box>
                       </CardContent>
@@ -245,8 +273,8 @@ export default function OrderScreen(props) {
       <Box>
         <Box>
           <Box className={[styles.bordered, styles.space]}>
-            My Order - {orderType} | Tax: ${taxPrice} | Total: ${totalPrice} |
-            Items: {itemsCount}
+            我的餐點 - {orderType} | 總價: NT${totalPrice} |
+            購物車商品: {itemsCount} 件
           </Box>
           <Box className={[styles.row, styles.around]}>
             <Button
@@ -258,7 +286,7 @@ export default function OrderScreen(props) {
               color="primary"
               className={styles.largeButton}
             >
-              Cancel Order
+              取消點單
             </Button>
             <Button
               onClick={previewOrderHandler}
@@ -267,7 +295,7 @@ export default function OrderScreen(props) {
               disabled={orderItems.length === 0}
               className={styles.largeButton}
             >
-              Done
+              完成點單
             </Button>
           </Box>
         </Box>

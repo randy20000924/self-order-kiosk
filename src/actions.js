@@ -4,6 +4,9 @@ import {
   CATEGORY_LIST_REQUEST,
   CATEGORY_LIST_FAIL,
   CATEGORY_LIST_SUCCESS,
+  CATEGORY_LIST_REQUEST1,
+  CATEGORY_LIST_FAIL1,
+  CATEGORY_LIST_SUCCESS1,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAIL,
@@ -46,6 +49,22 @@ export const listCategories = async (dispatch) => {
   }
 };
 
+export const listCategories1 = async (dispatch) => {
+  dispatch({ type: CATEGORY_LIST_REQUEST1 });
+  try {
+    const { data } = await Axios.get('/api/categories1');
+    return dispatch({
+      type: CATEGORY_LIST_SUCCESS1,
+      payload: data,
+    });
+  } catch (error) {
+    return dispatch({
+      type: CATEGORY_LIST_FAIL1,
+      payload: error.message,
+    });
+  }
+};
+
 export const listProducts = async (dispatch, categoryName = '') => {
   dispatch({ type: PRODUCT_LIST_REQUEST });
   try {
@@ -61,6 +80,7 @@ export const listProducts = async (dispatch, categoryName = '') => {
     });
   }
 };
+
 
 export const addToOrder = async (dispatch, item) => {
   return dispatch({
